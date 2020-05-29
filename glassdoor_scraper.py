@@ -7,8 +7,17 @@ Created on Tue May 26 01:56:34 2020
 
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+
 import time
 import pandas as pd
+
+#def click_link(element):
+#    execute_script("arguments[0].click();", element)
 
 def get_jobs(keyword, num_jobs, verbose, path, slp_time):
     
@@ -22,7 +31,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
     
     #Change the path to where chromedriver is in your home folder.
     driver = webdriver.Chrome(executable_path=path, options=options)
-    driver.set_window_size(1120, 1000)
+    driver.set_window_size(1200, 1000)
 
     url ="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword="+keyword+"&sc.keyword="+keyword+"&locT=N&locId=3&jobType="
    #url = 'https://www.glassdoor.com/Job/jobs.htm?sc.keyword="' + keyword + '"&locT=C&locId=1147401&locKeyword=San%20Francisco,%20CA&jobType=all&fromAge=-1&minSalary=0&includeNoSalaryJobs=true&radius=100&cityId=-1&minRating=0.0&industryId=-1&sgocId=-1&seniorityType=all&companyId=-1&employerSizes=0&applicationType=0&remoteWorkType=0'
@@ -54,6 +63,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         
         #Going through each job in this page
         job_buttons = driver.find_elements_by_class_name("jl")  #jl for Job Listing. These are the buttons we're going to click.
+        
         for job_button in job_buttons:  
 
             print("Progress: {}".format("" + str(len(jobs)) + "/" + str(num_jobs)))
@@ -61,7 +71,9 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
                 break
 
             job_button.click()  #You might 
-            time.sleep(1)
+            #click_link(job_button)
+            
+            time.sleep(2)
             collected_successfully = False
             
             while not collected_successfully:
@@ -98,7 +110,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
             #<div class="tab" data-tab-type="overview"><span>Company</span></div>
             try:
                 driver.find_element_by_xpath('.//div[@class="tab" and @data-tab-type="overview"]').click()
-
+                time.sleep(2)
                 try:
                     #<div class="infoEntity">
                     #    <label>Headquarters</label>
