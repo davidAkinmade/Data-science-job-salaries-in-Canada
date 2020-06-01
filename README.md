@@ -50,7 +50,9 @@ After obtaining the data, I cleaned it up so that it be usable usable for my mod
 
 ## EDA
 I looked at the distributions of the data and the value counts for the various categorical variables. Below are a few highlights from the pivot tables. 
-
+![alt text]( https://github.com/davidAkinmade/ds_salary_proj/blob/master/job_opportunity_by_city.png "Job opportunity by city")
+![alt text]( https://github.com/davidAkinmade/ds_salary_proj/blob/master/salary_by_job.PNG "Salary by job role")
+![alt text]( https://github.com/davidAkinmade/ds_salary_proj/blob/master/correlation_visual.png "Correlation visual")
 
 ## Model Building 
 
